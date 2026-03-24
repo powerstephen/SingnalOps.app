@@ -17,7 +17,7 @@ export async function POST() {
       support_tickets: c.support_tickets, time_to_value_days: c.time_to_value_days, nps: c.nps,
     }))
 
-    const prompt = `You are a revenue intelligence analyst. Based on these best customers, generate 8 realistic net-new prospect companies that closely match the profile and are showing active buying signals.
+    const prompt = `You are a revenue intelligence analyst. Based on these best customers, generate 8 realistic net-new prospect companies matching the profile and showing active buying signals.
 
 BEST CUSTOMERS:
 ${JSON.stringify(bestProfile, null, 2)}
@@ -34,9 +34,9 @@ Return ONLY valid JSON:
       "contact_name": "First Last",
       "contact_title": "VP Sales",
       "icp_match_score": 88,
-      "active_signals": ["Hired 3 SDRs in last 45 days", "Series A announced $8M", "New VP Sales hired 6 weeks ago"],
-      "why_now": "One sentence — why is NOW the right moment to reach out",
-      "lookalike_reason": "One sentence — how they match your best customers specifically"
+      "active_signals": ["signal 1", "signal 2", "signal 3"],
+      "why_now": "One sentence — why reach out right now",
+      "lookalike_reason": "One sentence — how they match your best customers"
     }
   ]
 }`
