@@ -32,8 +32,8 @@ RE-ENGAGEMENT ANGLE: ${account.reengagement_angle}
 
 Write a 3-email sequence:
 - Email 1 (Send now): Lead with the re-engagement angle, acknowledge the gap naturally, soft question. Under 100 words.
-- Email 2 (Day 4 if no reply): Short case study from a similar company with specific result. One yes/no question. Under 90 words.
-- Email 3 (Day 8 if no reply): Break-up email. Feels genuinely final. Ask if they want to be removed. Under 75 words. This gets the most replies.
+- Email 2 (Day 4 if no reply): Short case study from a similar company with a specific result. One yes/no question. Under 90 words.
+- Email 3 (Day 8 if no reply): Break-up email. Feels genuinely final. Under 75 words. This gets the most replies.
 
 Never say "just checking in", "circling back", or "I hope this email finds you well".
 
