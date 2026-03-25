@@ -1,47 +1,80 @@
 'use client'
-import { useRouter } from 'next/navigation'
+import { useState } from 'react'
+import { Target, RefreshCw, Zap, Database, TrendingUp } from 'lucide-react'
+import ICPProfile from '../components/ICPProfile'
+import RecoverTab from '../components/RecoverTab'
+import GenerateTab from '../components/GenerateTab'
+import DataCentre from '../components/DataCentre'
+import AccelerateTab from '../components/AccelerateTab'
+import SourcesBar from '../components/SourcesBar'
+import { ImportProvider } from '../context/ImportContext'
 
-export default function Home() {
-  const router = useRouter()
+type Tab = 'data' | 'icp' | 'recover' | 'generate' | 'accelerate'
+
+function DashboardInner() {
+  const [activeTab, setActiveTab] = useState<Tab>('data')
+  const tabs = [
+    { id: 'data'       as Tab, label: 'Data Centre', icon: Database   },
+    { id: 'icp'        as Tab, label: 'ICP Profile',  icon: Target     },
+    { id: 'recover'    as Tab, label: 'Recover',      icon: RefreshCw  },
+    { id: 'generate'   as Tab, label: 'Generate',     icon: Zap        },
+    { id: 'accelerate' as Tab, label: 'Accelerate',   icon: TrendingUp },
+  ]
+
   return (
-    <main className="min-h-screen bg-navy-900 flex flex-col items-center justify-center px-6">
-      <div className="max-w-2xl w-full text-center">
+    <div className="min-h-screen bg-navy-900 text-white">
+      {/* Nav */}
+      <nav className="border-b border-slate-800 px-6 py-0 flex items-center justify-between h-16 relative">
         {/* Logo */}
-        <div className="flex justify-center items-center gap-2 mb-8">
-          <div className="w-1.5 h-10 bg-teal-500 rounded-sm" />
-          <span className="text-3xl font-bold text-white tracking-tight">Signal<span className="text-teal-400">Ops</span></span>
+        <div className="flex-shrink-0">
+          <img src="/logo.png" alt="SignalOps" className="h-12" />
         </div>
 
-        {/* Category pill */}
-        <div className="inline-block mb-6">
-          <span className="text-xs font-semibold tracking-widest text-teal-500 border border-teal-500 px-3 py-1 rounded-sm uppercase">
-            Revenue Intelligence Platform
-          </span>
+        {/* Centre title */}
+        <div className="absolute left-1/2 -translate-x-1/2">
+          <span className="text-base font-bold text-slate-200 tracking-widest uppercase">Revenue Intelligence Platform</span>
         </div>
 
-        {/* Headline */}
-        <h1 className="text-4xl md:text-5xl font-semibold text-white leading-tight mb-4">
-          Know your best customer.<br />Find more of them.
-        </h1>
+        {/* Right */}
+        <div className="flex items-center gap-3">
+          <span className="text-xs text-slate-500 border border-slate-700 px-2 py-0.5 rounded">Demo</span>
+          <span className="text-xs text-slate-500">Koreva · B2B SaaS</span>
+          <div className="w-2 h-2 rounded-full bg-teal-500" />
+        </div>
+      </nav>
 
-        <p className="text-slate-400 text-lg mb-10 max-w-lg mx-auto">
-          Precision targeting, powered by your own revenue data.
-          Connect your CRM, billing, and CS data to surface the accounts most likely to become your next best customers.
-        </p>
-
-        {/* CTA */}
-        <button
-          onClick={() => router.push('/dashboard')}
-          className="bg-teal-500 hover:bg-teal-400 text-white font-semibold px-8 py-3 rounded transition-colors text-base"
-        >
-          Open Dashboard →
-        </button>
-
-        {/* Trust line */}
-        <p className="text-slate-600 text-sm mt-6">
-          Demo loaded with 100 real SaaS company profiles
-        </p>
+      {/* Tab bar */}
+      <div className="max-w-6xl mx-auto px-6">
+        <div className="flex gap-1 border-b border-slate-800">
+          {tabs.map(tab => {
+            const Icon = tab.icon
+            const active = activeTab === tab.id
+            return (
+              <button key={tab.id} onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 px-4 py-4 text-sm font-medium border-b-2 transition-colors -mb-px ${
+                  active ? 'border-teal-500 text-teal-400' : 'border-transparent text-slate-500 hover:text-slate-300'
+                }`}
+              >
+                <Icon size={15} />{tab.label}
+              </button>
+            )
+          })}
+        </div>
       </div>
-    </main>
+
+      {/* Content */}
+      <div className="max-w-6xl mx-auto px-6 py-7">
+        {activeTab !== 'data' && <SourcesBar />}
+        {activeTab === 'data'       && <DataCentre />}
+        {activeTab === 'icp'        && <ICPProfile />}
+        {activeTab === 'recover'    && <RecoverTab />}
+        {activeTab === 'generate'   && <GenerateTab />}
+        {activeTab === 'accelerate' && <AccelerateTab />}
+      </div>
+    </div>
   )
+}
+
+export default function Dashboard() {
+  return <ImportProvider><DashboardInner /></ImportProvider>
 }
