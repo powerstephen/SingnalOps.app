@@ -34,7 +34,7 @@ export default function GenerateTab() {
       const data = await res.json()
       setProspects(data.prospects)
     } catch {
-      setError(data?.error || 'Generation failed. Check ANTHROPIC_API_KEY is set in Vercel.')
+     setError('Generation failed. Check your API key is set in Vercel.')
     } finally {
       setLoading(false)
     }
